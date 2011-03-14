@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: ImageViewer
+Class-Path: jai_core.jar
+Class-Path: jai_codec.jar
+
