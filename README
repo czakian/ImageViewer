@@ -1,0 +1,88 @@
+ImageViewer:
+Author: Christopher Zakian
+Contact: czakian@indiana.edu
+
+1. OVERVIEW
+   The purpose of this image viewer is to let the user view PNM images; either
+   from the command line, or as an application started from another program.
+   As such, the image viewer can be called with either an image input stream or
+   with a file name. 
+       Great care and effort has been made to keep the code as compact and
+   simple as possible. To this end, the image viewer uses Java's 
+   Java Advanced Imaging library (JAI). These libraries do not come in the
+   standard Java libraries. To use the image viewer, you can use the jarfiles
+   provided under the jai directory. To use these jars, compile the image viewer
+   with the provided Makefile. Be sure to have the jai directory in the same 
+   directory as your Makefile and ImageViewer.java file.
+   Alternatively, you can download and install the JAI to your machine 
+   as per Java's instructions at:
+   http://java.sun.com/products/java-media/jai/INSTALL-1_1_2.html
+       This program has been tested with .ppm images up to 48.0MB 
+  and 4096x4096 pixels. Additionally,There is no reason that the image viewer 
+  couldn't display other image formats supported by JAI; however, these formats
+   have not been tested since they are outside of the scope of this project.
+   for more information on image formats supported by JAI see:
+   http://java.sun.com/products/java-media/jai/forDevelopers/jai1_0_1guide-unc/Acquisition.doc.html	 
+
+2. INSTRUCTIONS FOR USE
+
+   on Linux:
+   Compile the code with:
+   $ make
+   then run it with a file name:
+   $ java ImageViewer MyPic.ppm 
+   or with an input stream:
+   $ java ImageViewer <  MyPic.ppm
+
+   TODO: instructions for windows and mac
+
+3. TECHNICAL INFORMATION
+   
+   a. Important notes:
+   
+      For JAI.create:
+      the "fileload" and "stream" options must not be changed unless you intend
+      to change the operation being done. These strings are op names which are 
+      used to create a RenderedOP. For more information on how JAI uses op names
+      refer the the resources at the bottom.
+
+      For DisplayJAI:
+      This method of of displaying the output image was chosen over using JAI's
+      ScrollingImagePanel because the ScrollingImagePanel has been deprecated,
+      and that it does not get the correct insets for the Image. Currently there
+      is no non deprecated equivalent to the ScrollingImagePanel.
+      Adding DisplayJAI(which has no scroll bars) to a JScrollPane has the
+      equivalent effect, but with proper insets for the Image. Keep an eye out 
+      for a replacement of the ScrollingImagePanel in new releases of the JAI.
+
+  b. Building the JAI from source code:
+     
+     1. get the source code from the svn repository:	
+     	svn checkout https://svn.java.net/svn/jai-core~svn trunk
+
+     2. read the README-build.html file in the trunk. 
+
+     3. cd to the trunk directory in a terminal
+
+     4. run ant
+     the build should commence. 
+
+     5. locate the jars by going to: build -> linuxi586 -> opt -> lib -> ext
+
+     There should be three jar files: jai_codec, jai_core, and mlibwrapper.
+
+     Copy these jars into the image viewer's jai directory and you are finished.
+
+  c. Resources:
+
+     It is suprisingly hard to find documentation on the JAI so here are the
+     resources I found most helpful in creating this program:
+
+     JAI API:
+     http://download.oracle.com/docs/cd/E17802_01/products/products/java-media/jai/forDevelopers/jai-apidocs/
+
+     Programming in Java Advanced Imaging (put out by Sun):
+     http://java.sun.com/products/java-media/jai/forDevelopers/jai1_0_1guide-unc/JAITOC.fm.html
+
+     List of Operation Names (the "fileload" and "stream" options are used in this program):
+     http://java.sun.com/products/java-media/jai/forDevelopers/jai1_0_1guide-unc/Programming-environ.doc.html#55112
